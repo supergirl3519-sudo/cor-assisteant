@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЦОР-Ассистент — ИИ-помощник для учителей</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">📚</div>
+                <div class="logo-text">
+                    <h1>ЦОР-Ассистент</h1>
+                    <span>ИИ для учителей</span>
+                </div>
+            </div>
+
+            <nav class="nav">
+                <a href="#" class="nav-item active" data-section="generator">
+                    <span class="nav-icon">✨</span>
+                    <span>Создать ЦОР</span>
+                </a>
+                <a href="#" class="nav-item" data-section="templates">
+                    <span class="nav-icon">📋</span>
+                    <span>Шаблоны</span>
+                </a>
+                <a href="#" class="nav-item" data-section="history">
+                    <span class="nav-icon">📁</span>
+                    <span>Мои материалы</span>
+                </a>
+                <a href="#" class="nav-item" data-section="settings">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Настройки API</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="api-status" id="apiStatus">
+                    <span class="status-dot"></span>
+                    <span class="status-text">API не подключен</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Header -->
+            <header class="header">
+                <h2 id="pageTitle">Создание ЦОР</h2>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" id="clearBtn">Очистить</button>
+                    <button class="btn btn-primary" id="generateBtn">✨ Сгенерировать</button>
+                </div>
+            </header>
+
+            <!-- Generator Section -->
+            <section class="section active" id="generator">
+                <div class="generator-layout">
+                    <!-- Form -->
+                    <div class="form-panel">
+                        <div class="form-group">
+                            <label>Предмет</label>
+                            <select id="subject" class="form-control">
+                                <option value="">Выберите предмет...</option>
+                                <option value="matematika">Математика</option>
+                                <option value="russkiy">Русский язык</option>
+                                <option value="literatura">Литература</option>
+                                <option value="istoriya">История</option>
+                                <option value="obshchestvoznanie">Обществознание</option>
+                                <option value="geografiya">География</option>
+                                <option value="biologiya">Биология</option>
+                                <option value="fizika">Физика</option>
+                                <option value="himiya">Химия</option>
+                                <option value="informatika">Информатика</option>
+                                <option value="angliyskiy">Английский язык</option>
+                                <option value="fizkultura">Физкультура</option>
+                                <option value="tekhnologiya">Технология</option>
+                                <option value="izo">ИЗО</option>
+                                <option value="muzyka">Музыка</option>
+                                <option value="drugee">Другое...</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="customSubjectGroup" style="display:none;">
+                            <label>Укажите предмет</label>
+                            <input type="text" id="customSubject" class="form-control" placeholder="Например: Астрономия">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Класс</label>
+                                <select id="grade" class="form-control">
+                                    <option value="">Класс...</option>
+                                    <option value="1">1 класс</option>
+                                    <option value="2">2 класс</option>
+                                    <option value="3">3 класс</option>
+                                    <option value="4">4 класс</option>
+                                    <option value="5">5 класс</option>
+                                    <option value="6">6 класс</option>
+                                    <option value="7">7 класс</option>
+                                    <option value="8">8 класс</option>
+                                    <option value="9">9 класс</option>
+                                    <option value="10">10 класс</option>
+                                    <option value="11">11 класс</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Тип ЦОР</label>
+                                <select id="corType" class="form-control">
+                                    <option value="">Выберите тип...</option>
+                                    <option value="konspekt">Конспект урока</option>
+                                    <option value="prezentaciya">Презентация (слайды)</option>
+                                    <option value="test">Тест / Контрольная</option>
+                                    <option value="samostoyatelnya">Самостоятельная работа</option>
+                                    <option value="kartochki">Карточки-задания</option>
+                                    <option value="krskross">Кроссворд</option>
+                                    <option value="rabochiy-list">Рабочий лист</option>
+                                    <option value="plan-kalendar">Календарно-тематический план</option>
+                                    <option value="programma">Рабочая программа</option>
+                                    <option value="diktant">Диктант / Проверочная</option>
+                                    <option value="esse">Эссе / Сочинение</option>
+                                    <option value="proekt">Проектное задание</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Тема урока / раздела</label>
+                            <input type="text" id="topic" class="form-control" placeholder="Например: Квадратные уравнения">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Дополнительные требования (необязательно)</label>
+                            <textarea id="requirements" class="form-control" rows="4" placeholder="Укажите: количество вопросов, уровень сложности, особые требования ФГОС, формат ЕГЭ/ОГЭ, время выполнения..."></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Количество (слайдов/вопросов/заданий)</label>
+                                <input type="number" id="quantity" class="form-control" value="10" min="1" max="50">
+                            </div>
+                            <div class="form-group">
+                                <label>Уровень сложности</label>
+                                <select id="difficulty" class="form-control">
+                                    <option value="base">Базовый</option>
+                                    <option value="average" selected>Средний</option>
+                                    <option value="advanced">Продвинутый</option>
+                                    <option value="mixed">Смешанный</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="fgosCheck" checked>
+                                <span>Соответствие ФГОС</span>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="differentiation">
+                                <span>Дифференциация (задания для слабых/сильных)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Preview -->
+                    <div class="preview-panel">
+                        <div class="preview-header">
+                            <h3>Результат</h3>
+                            <div class="preview-actions">
+                                <button class="btn btn-sm btn-secondary" id="copyBtn" disabled>📋 Копировать</button>
+                                <button class="btn btn-sm btn-secondary" id="downloadBtn" disabled>💾 Скачать</button>
+                                <button class="btn btn-sm btn-secondary" id="printBtn" disabled>🖨️ Печать</button>
+                            </div>
+                        </div>
+                        <div class="preview-content" id="previewContent">
+                            <div class="empty-state">
+                                <div class="empty-icon">📝</div>
+                                <h3>Готовы создать ЦОР?</h3>
+                                <p>Заполните форму слева и нажмите «Сгенерировать».<br>ИИ создаст качественный образовательный материал.</p>
+                                <div class="examples">
+                                    <span class="example-tag" data-example="matematika">Математика 9 класс</span>
+                                    <span class="example-tag" data-example="russkiy">Русский язык 5 класс</span>
+                                    <span class="example-tag" data-example="istoriya">История 7 класс</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="loading" id="loading" style="display:none;">
+                            <div class="spinner"></div>
+                            <p>ИИ генерирует материал...<br><span id="loadingStep">Анализирую параметры...</span></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Templates Section -->
+            <section class="section" id="templates">
+                <div class="templates-grid" id="templatesGrid">
+                    <!-- Templates will be loaded by JS -->
+                </div>
+            </section>
+
+            <!-- History Section -->
+            <section class="section" id="history">
+                <div class="history-header">
+                    <h3>История созданных материалов</h3>
+                    <button class="btn btn-danger" id="clearHistory">🗑️ Очистить историю</button>
+                </div>
+                <div class="history-list" id="historyList">
+                    <div class="empty-state">
+                        <div class="empty-icon">📁</div>
+                        <h3>История пуста</h3>
+                        <p>Созданные материалы будут сохраняться здесь автоматически.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section class="section" id="settings">
+                <div class="settings-card">
+                    <h3>🔑 Настройки API</h3>
+                    <p class="settings-desc">Для генерации ЦОР используется ИИ через API. Вы можете использовать бесплатный ключ OpenRouter или свой.</p>
+
+                    <div class="form-group">
+                        <label>API Ключ (OpenRouter)</label>
+                        <input type="password" id="apiKey" class="form-control" placeholder="sk-or-v1-...">
+                        <small class="help-text">
+                            <a href="https://openrouter.ai/keys" target="_blank">Получить бесплатный ключ на OpenRouter →</a>
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Модель ИИ</label>
+                        <select id="modelSelect" class="form-control">
+                            <option value="meta-llama/llama-4-maverick:free">Meta Llama 4 Maverick (бесплатно)</option>
+                            <option value="google/gemini-2.5-flash-preview:free">Google Gemini 2.5 Flash (бесплатно)</option>
+                            <option value="deepseek/deepseek-chat:free">DeepSeek Chat (бесплатно)</option>
+                            <option value="qwen/qwen3-235b-a22b:free">Qwen 3 235B (бесплатно)</option>
+                            <option value="openai/gpt-4.1-mini">GPT-4.1 Mini (платно)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="saveApiKey" checked>
+                            <span>Сохранить ключ в браузере (локально)</span>
+                        </label>
+                    </div>
+
+                    <button class="btn btn-primary" id="saveSettings">💾 Сохранить настройки</button>
+
+                    <div class="settings-info">
+                        <h4>📖 Как получить бесплатный API ключ:</h4>
+                        <ol>
+                            <li>Перейдите на <a href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a></li>
+                            <li>Зарегистрируйтесь (можно через Google/GitHub)</li>
+                            <li>Нажмите «Create Key»</li>
+                            <li>Скопируйте ключ и вставьте сюда</li>
+                        </ol>
+                        <p class="note">⚠️ Ключ хранится только в вашем браузере и не отправляется на наши серверы.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
